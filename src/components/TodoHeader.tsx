@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { ChangeEventHandler, MouseEventHandler, useState, useContext } from 'react';
+import { FilterTypes } from '../TodoApp.types';
+import { AppContext } from '../TodoApp.tsx';
 
-export const TodoHeader = (props) => {
-  const [inputText, setInputText] = React.useState('');
-  const { filter, setFilter, addTodo } = props;
+export const TodoHeader = () => {
+  const [inputText, setInputText] = useState<string>('');
+  const { getFilter, changeFilter, addTodo } = useContext(AppContext);
 
-  const onInput = (e) => {
+  const onInput: ChangeEventHandler<HTMLInputElement> = (e) => {
     setInputText(e.target.value);
   }
 
@@ -16,22 +18,22 @@ export const TodoHeader = (props) => {
     setInputText('');
   }
 
-  const onFilter = (e) => {
-    setFilter(e.currentTarget.textContent);
+  const onFilter: MouseEventHandler<HTMLButtonElement> = (e) => {
+    changeFilter(e.currentTarget.textContent as FilterTypes);
   }
 
   return (
     <header>
-      <h1>todos <small>(Basic implementation)</small></h1>
+      <h1>todos</h1>
       <div className="addTodo">
         <input className="textfield" placeholder="add todo" 
           value={inputText} onChange={onInput} />
         <button className="submit" onClick={onSubmit} > Add </button>
       </div>
       <nav className="filter">
-        <button className={filter === 'all' ? 'selected' : ''} onClick={onFilter} >all</button>
-        <button className={filter === 'active' ? 'selected' : ''} onClick={onFilter} >active</button>
-        <button className={filter === 'completed' ? 'selected' : ''} onClick={onFilter} >completed</button>
+        <button className={getFilter() === 'all' ? 'selected' : ''} onClick={onFilter} >all</button>
+        <button className={getFilter() === 'active' ? 'selected' : ''} onClick={onFilter} >active</button>
+        <button className={getFilter() === 'completed' ? 'selected' : ''} onClick={onFilter} >completed</button>
       </nav>
     </header>
   )
