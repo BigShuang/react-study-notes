@@ -1,6 +1,11 @@
 import React from 'react';
+import { Todo, ToggleCompleted } from '../TodoApp.types';
 
-export const TodoListItem = (props) => {
+interface TodoListItemProps extends Todo {
+  toggleCompleted: ToggleCompleted;
+}
+
+export const TodoListItem = (props: TodoListItemProps) => {
   const { label, status, id, toggleCompleted } = props;
 
   const handleCheck = () => {
