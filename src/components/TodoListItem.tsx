@@ -1,12 +1,10 @@
 import React from 'react';
-import { Todo, ToggleCompleted } from '../TodoApp.types';
+import { Todo } from '../TodoApp.types';
+import { AppContext } from '../TodoApp.tsx';
 
-interface TodoListItemProps extends Todo {
-  toggleCompleted: ToggleCompleted;
-}
-
-export const TodoListItem = (props: TodoListItemProps) => {
-  const { label, status, id, toggleCompleted } = props;
+export const TodoListItem = (props: Todo) => {
+  const { label, status, id } = props;
+  const { toggleCompleted } = React.useContext(AppContext);
 
   const handleCheck = () => {
     toggleCompleted(id);

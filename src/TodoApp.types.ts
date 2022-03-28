@@ -13,3 +13,12 @@ export type AddTodo = (label: string) => void;
 export type ToggleCompleted = (id: string) => void;
 export type ClearCompleted = () => void;
 export type ChangeFilter = (filter: FilterTypes) => void;
+
+export interface AppContentProps {
+  addTodo: (label: string) => void;
+  toggleCompleted: (id: string) => void;
+  clearCompleted: () => void;
+  changeFilter: (filter: FilterTypes) => void;
+  getFilter: () => FilterTypes;
+  getTodos: () => Todos;
+}
